@@ -1,17 +1,6 @@
 from django.shortcuts import render
 from .models import icecream_db
 
-
-def icecream_list(request):
-    icecreams = ''
-    for i in range(len(icecream_db)):
-        icecreams += f"{icecream_db[i]['name']}<br>"
-    context = {
-        'icecreams': icecreams,
-    }
-    return render(request, 'icecream/icecream-list.html', context)
-
-
 def icecream_detail(request, pk):
     name = icecream_db[pk]['name']
     description = icecream_db[pk]['description']
