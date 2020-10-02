@@ -10,9 +10,7 @@ def index(request):
     city_weather = ''
     friend_output = ''
     selected_icecream = ''
-    # подготовили к выводу рекомендацию
     conclusion = ''
-
 
     for friend in friends_db:
         friends += (f'<input type="radio" name="friend"'
@@ -20,12 +18,10 @@ def index(request):
 
     for i in range(len(icecream_db)):
         ice_form = (f'<input type="radio" name="icecream" required'
-                    f'value="{icecream_db[i]["name"]}">{icecream_db[i]["name"]}')
+                    f' value="{icecream_db[i]["name"]}">{icecream_db[i]["name"]}')
 
-        ice_link = f'<a href="icecream/{i}/">узнать состав</a>'
+        ice_link = f'<a href="icecream/{i}/">Узнать состав</a>'
         icecreams += f'{ice_form} | {ice_link} <br>'
-
-
 
     if request.method == 'POST':
         selected_friend = request.POST['friend']
@@ -35,12 +31,8 @@ def index(request):
         weather = what_weather(city)
 
 
-        # запишите в conclusion
-        # результат вызова функции what_conclusion() с аргументом parsed_temperature
         conclusion = what_conclusion(what_temperature(weather))
-
         friend_output = f'{selected_friend}, тебе прислали {selected_icecream}!'
-
         city_weather = f'В городе {city} погода: {weather}'
 
     context = {
@@ -48,7 +40,6 @@ def index(request):
         'friends': friends,
         'friend_output': friend_output,
         'city_weather': city_weather,
-        # передайте значение conclusion в шаблон
         'conclusion': conclusion,
     }
     return render(request, 'homepage/index.html', context)
